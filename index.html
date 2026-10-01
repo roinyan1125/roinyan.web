@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>ロイにゃんのブログ</title>
+
+<link rel="icon" type="image/png" href="gazou/roinyan.png">
+<meta name="description" content="説明なんて今はどうでもいいんだよ！">
+<!-- Google Search Console 所有権確認 -->
+<meta name="google-site-verification" content="q1NGCtlpUSN3hzYPz2-eJk2UMRz4Q2nFI6poCIr_8HY">
+
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:"Zen Maru Gothic", sans-serif;
+  background:#ffffff;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+
+input,
+textarea{
+  user-select:text;
+}
+
+img{
+  -webkit-user-drag:none;
+  user-select:none;
+  max-width:100%;
+  display:block;
+}
+
+/* ===== ヘッダー ===== */
+header{
+  background:#87cefa;
+  padding:25px 15px;
+  text-align:center;
+  color:#fff;
+}
+
+header h1{
+  margin:0;
+  font-size:34px;
+}
+
+.nav{
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.nav a{
+  text-decoration:none;
+  color:#87cefa;
+  background:#fff;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.dropdown{
+  position:relative;
+  display:inline-block;
+}
+
+.dropbtn{
+  border:none;
+  background:#fff;
+  color:#87cefa;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+  font-family:"Zen Maru Gothic", sans-serif;
+  cursor:pointer;
+}
+
+.dropdown-content{
+  display:none;
+  position:absolute;
+  top:110%;
+  left:0;
+  min-width:180px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  overflow:hidden;
+  z-index:1000;
+}
+
+.dropdown-content a{
+  display:block;
+  padding:10px 15px;
+  color:#555;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.dropdown-content a:hover{
+  background:#f5faff;
+}
+
+.dropdown:hover .dropdown-content{
+  display:block;
+}
+
+/* ===== お知らせ ===== */
+.notice{
+  max-width:1100px;
+  width:calc(100% - 40px);
+  margin:20px auto 8px;
+  background:#f8fcff;
+  border:2px solid #87cefa;
+  border-radius:12px;
+  padding:15px 20px;
+  overflow:hidden;
+}
+
+.notice h3{
+  margin:0 0 8px;
+  color:#87cefa;
+  font-size:16px;
+}
+
+.notice-content p{
+  margin:0;
+  color:#555;
+  font-size:14px;
+  line-height:1.5;
+  word-break:break-word;
+}
+
+/* ===== レイアウト ===== */
+.layout{
+  max-width:1100px;
+  width:calc(100% - 40px);
+  margin:0 auto;
+  padding:10px 0 30px;
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 320px;
+  gap:20px;
+  align-items:start;
+}
+
+.main-content{
+  min-width:0;
+}
+
+/* 左上の紹介 */
+.top-box{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  background:#fff;
+  border:1px solid #d9eefc;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.left-img{
+  width:160px;
+  height:160px;
+  object-fit:cover;
+  border-radius:12px;
+  border:3px solid #87cefa;
+  flex-shrink:0;
+}
+
+.text{
+  flex:1;
+}
+
+.text h2{
+  margin:0 0 10px;
+  color:#333;
+}
+
+.text p{
+  margin:0;
+  color:#555;
+  line-height:1.6;
+}
+
+/* 記事ボックス */
+.article-box{
+  background:#f8fcff;
+  border:1px solid #d9eefc;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.article-box h3{
+  margin:0 0 10px;
+  color:#87cefa;
+}
+
+.article-box p{
+  margin:0 0 12px;
+  color:#444;
+  line-height:1.8;
+}
+
+/* ===== 新着記事（左側） ===== */
+.section.card{
+  background:#fff;
+  border:1px solid #d9eefc;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 3px 10px rgba(0,0,0,0.04);
+  margin-bottom:18px;
+}
+
+.card-header{
+  background:#f8fcff;
+  border-bottom:1px solid #d9eefc;
+  padding:12px 15px;
+}
+
+.card-header h2{
+  margin:0;
+  color:#87cefa;
+  font-size:16px;
+}
+
+.card-body{
+  padding:15px;
+}
+
+.post-list{
+  display:grid;
+  gap:12px;
+}
+
+.post{
+  display:flex;
+  gap:12px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ecf5fb;
+  background:#fff;
+  transition: all 0.2s ease;
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+}
+
+.post:hover{
+  background:#f0faff;
+  border-color:#87cefa;
+  box-shadow:0 6px 16px rgba(135, 206, 250, 0.25);
+  transform: translateY(-2px);
+}
+
+.post-thumb{
+  width:90px;
+  height:70px;
+  border-radius:10px;
+  object-fit:cover;
+  border:2px solid #dff0fb;
+  flex-shrink:0;
+  transition: all 0.2s ease;
+}
+
+.post:hover .post-thumb{
+  border-color:#87cefa;
+  transform: scale(1.03);
+}
+
+.post-meta{
+  font-size:12px;
+  color:#7a8a96;
+  margin-bottom:4px;
+}
+
+.post-title{
+  margin:0 0 5px;
+  font-size:15px;
+  color:#333;
+}
+
+.post-desc{
+  margin:0;
+  color:#555;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* ===== サイドバー ===== */
+.sidebar{
+  position:sticky;
+  top:20px;
+  align-self:start;
+  display:grid;
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #d9eefc;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 3px 10px rgba(0,0,0,0.04);
+}
+
+.card-header h3{
+  margin:0;
+  color:#87cefa;
+  font-size:16px;
+}
+
+.card-body{
+  padding:15px;
+}
+
+.profile{
+  text-align:center;
+}
+
+.profile img{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:0 auto 10px;
+  border:4px solid #87cefa;
+}
+
+.profile p{
+  margin:0;
+  color:#555;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.side-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#f8fcff;
+  border:1px solid #d9eefc;
+  border-radius:10px;
+  padding:10px 12px;
+  margin-top:8px;
+  text-decoration:none;
+  color:#87cefa;
+  font-weight:600;
+  font-size:14px;
+}
+
+.link-icon{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+.side-link:hover{
+  background:#eef9ff;
+}
+
+/* ===== フッター ===== */
+footer{
+  margin-top:40px;
+  background:#87cefa;
+  color:white;
+  padding:25px;
+  position:relative;
+}
+
+.footer-wrap{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  max-width:1200px;
+  margin:0 auto;
+  gap:20px;
+}
+
+.footer-img{
+  width:320px;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+  border:2px solid white;
+}
+
+.footer-links{
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+}
+
+.footer-box h3{
+  margin:0 0 10px;
+  font-size:15px;
+}
+
+.footer-box a{
+  display:block;
+  color:white;
+  text-decoration:none;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.footer-box a:hover{
+  text-decoration:underline;
+}
+
+.footer-logo{
+  position:absolute;
+  right:-20px;
+  bottom:-60px;
+  width:200px;
+  height:auto;
+  z-index:10;
+  pointer-events:none;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:15px;
+  font-size:13px;
+  opacity:0.9;
+}
+
+@media (max-width: 900px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    position:static;
+  }
+
+  .top-box{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .footer-wrap{
+    flex-direction:column;
+  }
+
+  .footer-img{
+    width:100%;
+    height:220px;
+  }
+
+  .footer-logo{
+    right:-20px;
+    bottom:-45px;
+    width:160px;
+  }
+}
+
+@media (max-width: 600px){
+  header h1{
+    font-size:27px;
+  }
+
+  .layout{
+    width:calc(100% - 24px);
+    padding:10px 0 24px;
+  }
+
+  .notice{
+    width:calc(100% - 24px);
+    padding:14px;
+  }
+
+  .nav{
+    gap:8px;
+  }
+
+  .nav a,
+  .dropbtn{
+    font-size:13px;
+    padding:8px 13px;
+  }
+
+  .post{
+    flex-direction:column;
+  }
+
+  .post-thumb{
+    width:100%;
+    height:160px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>ロイにゃんのブログ</h1>
+
+  <div class="nav">
+    <a href="https://roinyan.com">ホーム</a>
+    <a href="/リンク集/">リンク集</a>
+    <a href="/記事/">記事</a>
+    </div>
+
+  </div>
+</header>
+
+<div class="notice" id="noticeBox">
+  <h3>📢 お知らせ</h3>
+  <div class="notice-content" id="noticeContent">
+    <p>ロイにゃんのブログを新しくしてみました</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- 左側 -->
+  <main class="main-content">
+    <div class="top-box">
+      <img src="gazou/roinyan.png" class="left-img" alt="ロイにゃんのアイコン">
+
+      <div class="text">
+        <h2>ロイにゃんのブログへようこそ</h2>
+        <p>
+          ご訪問ありがとうございます。<br>
+          ここでは、記事や自作のサイトがあったり、配信者さんのための時計などを配布していたりするサイトです<br>
+        </p>
+      </div>
+    </div>
+
+    <div class="article-box">
+      <h3>このサイトの今後について</h3>
+      <p>サイトを公開したばかりなのでまだ少ないです。</p>
+      <p>今後いろいろ追加していくのでそれまではお待ちください。</p>
+    </div>
+
+    <!-- 新着記事 -->
+    <div class="section card">
+      <div class="card-header">
+        <h2>📝 新着記事</h2>
+      </div>
+      <div class="card-body">
+        <div class="post-list">
+
+          <a class="post" href="/記事/Heak.ai拡張機能/">
+            <img src="gazou/kizi1.png" class="post-thumb" alt="記事サムネイル">
+            <div>
+              <div class="post-meta">2026/07/13 ・ 拡張機能</div>
+              <h3 class="post-title">自分がたまに使っているchatGPTの見た目を変える拡張機能を作ってみた</h3>
+              <p class="post-desc">
+                Heck.aiの拡張機能を作成してみた
+              </p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 右側 -->
+  <aside class="sidebar">
+
+    <div class="card profile">
+      <div class="card-body">
+        <img src="gazou/roinyan.png" alt="ロイにゃん">
+        <h3>ロイにゃん</h3>
+        <p>個人(ロイにゃん)で運営しているサイトです<br>更新は遅めになると思います</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>🔗 便利リンク</h3>
+      </div>
+      <div class="card-body">
+        <a class="side-link" href="https://www.youtube.com/@roinyan">
+          <img src="icon/Youtube.png" alt="" class="link-icon">
+          <span>Youtube</span>
+        </a>
+
+        <a class="side-link" href="https://x.com/roinyan1125">
+          <img src="icon/x.png" alt="" class="link-icon">
+          <span>X(旧Twitter)</span>
+        </a>
+
+        <a class="side-link" href="https://roinyan.booth.pm/">
+          <img src="icon/BOOTH.png" alt="" class="link-icon">
+          <span>BOOTH</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>📌 このサイトについて</h3>
+      </div>
+      <div class="card-body">
+        <p style="margin:0; color:#555; font-size:14px; line-height:1.6;">
+          自分のサイトをHTMLで作ってみたいなって思ってつくってみたサイトです
+        </p>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <img src="gazou/test.png" class="footer-img" alt="フッター画像">
+
+    <div class="footer-links">
+      <div class="footer-box">
+        <h3>ページ一覧</h3>
+        <a href="https://roinyan.com">ホーム</a>
+        <a href="/リンク集/">リンク集</a>
+        <a href="/作成中.html/">Discord</a>
+        <a href="/作成中.html/">お問合せ</a>
+      </div>
+
+      <div class="footer-box">
+        <h3>その他のリンク</h3>
+        <a href="https://discordbot.roinyan.com/">アイスBot</a>
+      </div>
+    </div>
+
+    <img src="gazou/roinyanlogo.png" class="footer-logo" alt="ロゴ">
+  </div>
+
+  <div class="copyright">
+    © 2026 ロイにゃんのブログ
+  </div>
+</footer>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const box = document.getElementById("noticeBox");
+  const content = document.getElementById("noticeContent");
+
+  if (!content || content.textContent.trim() === "") {
+    box.style.display = "none";
+  }
+});
+</script>
+
+<script>
+// 右クリック禁止
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+
+// コピー・切り取り・貼り付け禁止
+["copy", "cut", "paste"].forEach(function(event) {
+  document.addEventListener(event, function(e) {
+    e.preventDefault();
+  });
+});
+
+// ドラッグ禁止
+document.addEventListener("dragstart", function(e) {
+  e.preventDefault();
+});
+
+// キーボードショートカット禁止
+document.addEventListener("keydown", function(e) {
+  const key = e.key.toLowerCase();
+
+  if (e.key === "F12") {
+    e.preventDefault();
+    return;
+  }
+
+  if (
+    e.ctrlKey &&
+    ["u", "s", "c", "x", "a", "p"].includes(key)
+  ) {
+    e.preventDefault();
+    return;
+  }
+
+  if (
+    e.ctrlKey &&
+    e.shiftKey &&
+    ["i", "j", "c"].includes(key)
+  ) {
+    e.preventDefault();
+  }
+});
+</script>
+
+</body>
+</html>
