@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リンク集￤ロイにゃんのブログ</title>
+
+  <link rel="icon" type="image/png" href="../gazou/roinyan.png">
+  <meta name="description" content="ロイにゃんのリンク集">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Zen Maru Gothic", sans-serif;
+      background: #fff;
+    }
+
+    header {
+      background: #87cefa;
+      padding: 25px 15px;
+      text-align: center;
+      color: #fff;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    .nav {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #87cefa;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      border: none;
+      background: #fff;
+      color: #87cefa;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: "Zen Maru Gothic", sans-serif;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      min-width: 180px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 15px;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5faff;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .links-page {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .links-page h2 {
+      text-align: center;
+      color: #444;
+      font-size: 34px;
+    }
+
+    .sub {
+      text-align: center;
+      color: #777;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px;
+      border: 2px solid #87cefa;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #333;
+      transition: .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+
+    .icon {
+      width: 64px;
+      height: 64px;
+      background: #eaf7ff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #87cefa;
+      color: #fff;
+      padding: 25px;
+      position: relative;
+    }
+
+    .footer-wrap {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 20px;
+    }
+
+    .footer-img{
+      width:320px;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      border:2px solid white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .footer-box h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .footer-box a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .footer-logo {
+      position: absolute;
+      right: -20px;
+      bottom: -60px;
+      width: 200px;
+      height: auto;
+      z-index: 10;
+    }
+
+
+    .copyright {
+      text-align: center;
+      margin-top: 15px;
+      font-size:13px;
+      opacity:0.9;
+    }
+
+    /* 文章の選択を禁止 */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* 画像のドラッグを禁止 */
+    img {
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+  </style>
+
+    
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>ロイにゃんのブログ</h1>
+
+  <div class="nav">
+    <a href="https://roinyan.com/">ホーム</a>
+    <a href="../リンク集/">リンク集</a>
+    <a href="../記事/">記事</a>
+
+  </div>
+</header>
+
+<div class="links-page">
+  <h2>🔗 リンク集</h2>
+  <p class="sub">各種SNS・サービスはこちら！</p>
+
+<div class="grid">
+
+
+  <a class="card" href="http://download.roinyan.com">
+    <div class="icon">
+      <img src="../icon/Download.png" alt="download web">
+    </div>
+
+    <div>
+      <h3>Downloadサイト</h3>
+      <p>無料だと思うよ</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://roinyan1125.wixsite.com/aisubot">
+    <div class="icon">
+      <img src="../icon/aisubot.png" alt="aisubot">
+    </div>
+
+    <div>
+      <h3>アイスBot</h3>
+      <p>自作Discord Bot</p>
+    </div>
+  </a>
+
+
+  <a class="card" href="https://discord.gg/dx5kzuq2rp">
+    <div class="icon">
+      <img src="../icon/Discord.png" alt="Discord">
+    </div>
+
+    <div>
+      <h3>Discord</h3>
+      <p>Discord鯖</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://discord.new/fjrK6Z6aBRTb">
+    <div class="icon">
+      <img src="../icon/Discord.png" alt="Discord template">
+    </div>
+
+    <div>
+      <h3>Discord鯖テンプレ</h3>
+      <p>良ければ使ってね</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://roinyan.booth.pm/">
+    <div class="icon">
+      <img src="../icon/BOOTH.png" alt="BOOTH">
+    </div>
+
+    <div>
+      <h3>BOOTH</h3>
+      <p>基本無料のショップ</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://www.youtube.com/@roinyan">
+    <div class="icon">
+      <img src="../icon/Youtube.png" alt="YouTube">
+    </div>
+
+    <div>
+      <h3>YouTube</h3>
+      <p>投稿してるかも</p>
+    </div>
+  </a>
+
+    <a class="card" href="https://x.com/roinyan1125">
+    <div class="icon">
+      <img src="../icon/x.png" alt="X">
+    </div>
+
+    <div>
+      <h3>X(旧Twitter)</h3>
+      <p>不定期投稿</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://www.instagram.com/roinyan1125/">
+    <div class="icon">
+      <img src="../icon/Instagram.png" alt="Instagram">
+    </div>
+
+    <div>
+      <h3>Instagram</h3>
+      <p>気分で投稿はしてる</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://www.tiktok.com/@roinyan._">
+    <div class="icon">
+      <img src="../icon/tiktok.png" alt="tiktok">
+    </div>
+
+    <div>
+      <h3>TikTok</h3>
+      <p>基本何も出していない</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://open.spotify.com/user/31uukce7w6nvaiemjxi45vcz37t4?si=142b804416fe42bc">
+    <div class="icon">
+      <img src="../icon/Spotify.png" alt="Spotify">
+    </div>
+
+    <div>
+      <h3>Spotify</h3>
+      <p>プレイリスト多いよ</p>
+    </div>
+  </a>
+
+  <a class="card" href="https://www.mirrativ.com/user/135925660?where=profile">
+    <div class="icon">
+      <img src="../icon/Mirrativ.png" alt="Mirrativ">
+    </div>
+
+    <div>
+      <h3>Mirrativ</h3>
+      <p>配信はここでやってるよ</p>
+    </div>
+
+  <a class="card" href="https://www.twitch.tv/roinyan1125">
+    <div class="icon">
+      <img src="../icon/Twitch.png" alt="Twitch">
+    </div>
+
+    <div>
+      <h3>Twitch</h3>
+      <p>配信始めた</p>
+    </div>
+
+  <a class="card" href="https://github.com/roinyan1125">
+    <div class="icon">
+      <img src="../icon/github.png" alt="GitHub">
+    </div>
+
+    <div>
+      <h3>GitHub</h3>
+      <p>配布・ソース</p>
+    </div>
+  </a>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <img src="../gazou/左下.png" class="footer-img">
+
+    <div class="footer-links">
+      <div class="footer-box">
+        <h3>ページ一覧</h3>
+        <a href="https://roinyan.com">ホーム</a>
+        <a href="../リンク集/">リンク集</a>
+        <a href="../作成中.html/">Discord</a>
+        <a href="../作成中.html/">お問合せ</a>
+      </div>
+
+      <div class="footer-box">
+        <h3>その他のリンク</h3>
+        <a href="discord.roinyan.com">アイスBot</a>
+      </div>
+    </div>
+
+    <img src="../gazou/roinyanlogo.png" class="footer-logo" alt="ロゴ">
+  </div>
+
+  <div class="copyright">© 2026 ロイにゃんのブログ</div>
+</footer>
+
+<script>
+  // 右クリック禁止
+  document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+  });
+
+  // コピー・切り取り・貼り付け禁止
+  ["copy", "cut", "paste"].forEach(function(event) {
+    document.addEventListener(event, function(e) {
+      e.preventDefault();
+    });
+  });
+
+  // ドラッグ禁止
+  document.addEventListener("dragstart", function(e) {
+    e.preventDefault();
+  });
+
+  // キーボードショートカット禁止
+  document.addEventListener("keydown", function(e) {
+    const key = e.key.toLowerCase();
+
+    if (e.key === "F12") {
+      e.preventDefault();
+      return;
+    }
+
+    if (
+      e.ctrlKey &&
+      ["u", "s", "c", "x", "a", "p"].includes(key)
+    ) {
+      e.preventDefault();
+      return;
+    }
+
+    if (
+      e.ctrlKey &&
+      e.shiftKey &&
+      ["i", "j", "c"].includes(key)
+    ) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+</body>
+</html>

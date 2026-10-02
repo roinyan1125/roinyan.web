@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>【記事】Heak.ai拡張機能￤ロイにゃんのブログ</title>
+
+<link rel="icon" type="image/png" href="../../gazou/roinyan.png">
+<meta name="description" content="ロイにゃんのブログの記事ページです。">
+
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:"Zen Maru Gothic", sans-serif;
+  background:#ffffff;
+  color:#333;
+
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+
+input, textarea{
+  user-select:text;
+}
+
+img{
+  -webkit-user-drag:none;
+  user-select:none;
+  max-width:100%;
+  display:block;
+}
+
+/* ヘッダー */
+header{
+  background:#87cefa;
+  padding:25px 15px;
+  text-align:center;
+  color:#fff;
+}
+
+header h1{
+  margin:0;
+  font-size:34px;
+}
+
+/* ナビ */
+.nav{
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.nav a{
+  text-decoration:none;
+  color:#87cefa;
+  background:#fff;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* ドロップダウン */
+.dropdown{
+  position:relative;
+  display:inline-block;
+}
+
+.dropbtn{
+  border:none;
+  background:#fff;
+  color:#87cefa;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+  font-family:"Zen Maru Gothic", sans-serif;
+  cursor:pointer;
+}
+
+.dropdown-content{
+  display:none;
+  position:absolute;
+  top:110%;
+  left:0;
+  min-width:180px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  overflow:hidden;
+  z-index:1000;
+}
+
+.dropdown-content a{
+  display:block;
+  padding:10px 15px;
+  color:#454c53;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.dropdown-content a:hover{
+  background:#f5faff;
+}
+
+.dropdown:hover .dropdown-content{
+  display:block;
+}
+
+.wrap{
+  max-width:900px;
+  width:calc(100% - 24px);
+  margin:20px auto 40px;
+}
+
+.article{
+  background:#fff;
+  border:1px solid #d9eefc;
+  border-radius:14px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.04);
+  overflow:hidden;
+}
+
+.article-header{
+  background:#f8fcff;
+  border-bottom:1px solid #d9eefc;
+  padding:18px 20px;
+}
+
+.article-meta{
+  font-size:13px;
+  color:#7a8a96;
+  margin-bottom:8px;
+}
+
+.article-title{
+  margin:0;
+  color:#333;
+  font-size:26px;
+  line-height:1.4;
+}
+
+.article-body{
+  padding:20px;
+  line-height:1.9;
+  font-size:16px;
+  color:#30343a;
+}
+
+/* 自分がコメントしてるみたいな部分 */
+.speech-box{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:20px;
+  background:transparent;
+  border:none;
+  padding:0;
+}
+
+.speech-icon{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #87cefa;
+  flex-shrink:0;
+}
+
+.speech-text{
+  margin:0;
+  background:#fff;
+  border:1px solid #d9eefc;
+  padding:12px 14px;
+  border-radius:14px;
+  color:#30343a;
+  font-size:15px;
+  line-height:1.7;
+  position:relative;
+  top:15px;
+}
+
+.speech-text::before{
+  content:"";
+  position:absolute;
+  left:-8px;
+  top:16px;
+  width:14px;
+  height:14px;
+  background:#fff;
+  border-left:1px solid #d9eefc;
+  border-bottom:1px solid #d9eefc;
+  transform:rotate(45deg);
+}
+
+/* 目次 */
+.toc{
+  background:#f8fcff;
+  border:1px solid #d9eefc;
+  border-radius:12px;
+  padding:16px 18px;
+  margin:20px 0;
+  max-width:420px;
+  width:100%;
+}
+
+.toc h2{
+  margin:0 0 10px;
+  font-size:18px;
+  color:#87cefa;
+}
+
+.toc ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.toc li{
+  margin:8px 0;
+}
+
+.toc a{
+  color:#454c53;
+  text-decoration:none;
+}
+
+.toc a:hover{
+  text-decoration:underline;
+}
+
+.article-body h2{
+  color:#25abfd;
+  font-size:30px;
+  margin:28px 0 12px;
+}
+
+.article-body p{
+  margin:0 0 16px;
+}
+
+.article-body img{
+  border-radius:12px;
+  margin:16px 0;
+  border:1px solid #d9eefc;
+}
+
+.note{
+  background:#e9f5ff;
+  border-left:4px solid #87cefa;
+  padding:14px 16px;
+  border-radius:10px;
+  margin:18px 0;
+  color:#454c53;
+}
+
+
+/* コードBox */
+.code-box{
+  margin:20px 0;
+  border:1px solid #d9eefc;
+  border-radius:14px;
+  overflow:hidden;
+  background:#f8fcff;
+  box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+.code-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 12px;
+  background:#eaf7ff;
+  border-bottom:1px solid #d9eefc;
+}
+
+.code-language{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#587789;
+  font-size:13px;
+  font-weight:700;
+}
+
+.code-language .code-icon{
+  min-width:30px;
+  height:28px;
+  padding:0 7px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:#fff;
+  color:#87cefa;
+  font-size:10px;
+  font-weight:700;
+  font-family:Consolas,"Cascadia Code",monospace;
+  border:1px solid #d9eefc;
+}
+
+.code-copy{
+  border:1px solid #c5e5f7;
+  background:#fff;
+  color:#5c849a;
+  padding:6px 11px;
+  border-radius:8px;
+  font-family:"Zen Maru Gothic", sans-serif;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.code-copy:hover{
+  background:#f5fbff;
+  transform:translateY(-1px);
+}
+
+.code-copy.copied{
+  color:#4b9a70;
+}
+
+.code-editor{
+  display:flex;
+  overflow:auto;
+  background:#f3f4f6;
+  position:relative;
+}
+
+.code-editor pre{
+  background-color:#f3f4f6;
+  background-image:repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent 23px,
+    rgba(120,130,140,0.07) 23px,
+    rgba(120,130,140,0.07) 24px
+  );
+  background-position:18px 0;
+}
+
+.code-lines{
+  flex:0 0 auto;
+  margin:0;
+  padding:16px 12px 16px 16px;
+  color:#8d969e;
+  background:#eceef1;
+  border-right:1px solid #dfe3e8;
+  font-family:Consolas,"Cascadia Code","Courier New",monospace;
+  font-size:14px;
+  line-height:1.7;
+  text-align:right;
+  user-select:none;
+}
+
+.code-box pre{
+  flex:1 0 auto;
+  margin:0;
+  padding:16px 18px;
+  overflow:visible;
+  background:#f3f4f6;
+}
+
+.code-box code{
+  display:block;
+  min-width:max-content;
+  color:#30343a;
+  font-family:Consolas,"Cascadia Code","Courier New",monospace;
+  font-size:14px;
+  line-height:1.7;
+  white-space:pre;
+  tab-size:4;
+}
+
+/* VS Codeっぽい色分け */
+.code-box .token.comment{
+  color:#4f7658;
+}
+
+.code-box .token.prolog,
+.code-box .token.doctype,
+.code-box .token.cdata{
+  color:#4f7658;
+}
+
+.code-box .token.punctuation{
+  color:#454c53;
+}
+
+.code-box .token.tag{
+  color:#24649b;
+}
+
+.code-box .token.tag .token.punctuation{
+  color:#808080;
+}
+
+.code-box .token.attr-name{
+  color:#4e6c84;
+}
+
+.code-box .token.attr-value,
+.code-box .token.string{
+  color:#a05232;
+}
+
+.code-box .token.keyword{
+  color:#705487;
+}
+
+.code-box .token.function{
+  color:#315f91;
+}
+
+.code-box .token.class-name{
+  color:#27736f;
+}
+
+.code-box .token.number{
+  color:#80631f;
+}
+
+.code-box .token.boolean,
+.code-box .token.constant{
+  color:#24649b;
+}
+
+.code-box .token.operator{
+  color:#454c53;
+}
+
+.code-box .token.variable{
+  color:#4e6c84;
+}
+
+.code-box .token.property{
+  color:#4e6c84;
+}
+
+@media (max-width:600px){
+  .code-box code,
+  .code-lines{
+    font-size:13px;
+  }
+
+  .code-header{
+    padding:8px 10px;
+  }
+
+  .code-lines{
+    padding-left:10px;
+    padding-right:9px;
+  }
+
+  .code-box pre{
+    padding-left:14px;
+    padding-right:14px;
+  }
+}
+
+/* YouTube埋め込み */
+.youtube-wrap{
+  position:relative;
+  width:100%;
+  max-width:800px;
+  aspect-ratio:16/9;
+  margin:16px 0;
+}
+
+.youtube-wrap iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  border-radius:12px;
+}
+
+.footer-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.footer-nav a{
+  flex:1;
+  min-width:200px;
+  text-align:center;
+  text-decoration:none;
+  background:#87cefa;
+  color:#fff;
+  padding:12px 14px;
+  border-radius:12px;
+  font-weight:600;
+}
+
+.footer-nav a:hover{
+  opacity:0.9;
+}
+
+/* フッター */
+footer{
+  margin-top:40px;
+  background:#87cefa;
+  color:white;
+  padding:25px;
+  position:relative;
+}
+
+.footer-wrap{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  max-width:1200px;
+  margin:0 auto;
+  gap:20px;
+}
+
+.footer-img{
+  width:320px;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+  border:2px solid white;
+}
+
+.footer-links{
+  display:flex;
+  gap:25px;
+}
+
+.footer-box h3{
+  margin:0 0 10px;
+  font-size:15px;
+}
+
+.footer-box a{
+  display:block;
+  color:white;
+  text-decoration:none;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.footer-box a:hover{
+  text-decoration:underline;
+}
+
+.footer-logo{
+  position:absolute;
+  right:-20px;
+  bottom:-60px;
+  width:200px;
+  height:auto;
+  z-index:10;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:15px;
+  font-size:13px;
+  opacity:0.9;
+}
+
+@media (max-width: 600px){
+  header h1{
+    font-size:27px;
+  }
+
+  .article-title{
+    font-size:22px;
+  }
+
+  .article-body{
+    padding:16px;
+    font-size:15px;
+  }
+
+  .speech-box{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .speech-text::before{
+    left:18px;
+    top:-8px;
+    border-left:none;
+    border-bottom:none;
+    border-top:1px solid #d9eefc;
+    border-right:1px solid #d9eefc;
+  }
+
+  .footer-nav a{
+    min-width:100%;
+  }
+
+  .footer-wrap{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  .footer-links{
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .footer-logo{
+    position:static;
+    margin-top:10px;
+  }
+
+  .footer-img{
+    width:100%;
+    max-width:320px;
+    height:auto;
+  }
+
+  .toc{
+    max-width:100%;
+  }
+
+  .youtube-wrap{
+    max-width:100%;
+  }
+
+p a.link,
+p a.link:visited {
+    color: #87cefa !important;
+    text-decoration: none !important;
+}
+
+
+p a.link:hover {
+    color: #5bb8f5 !important;
+}
+  
+}
+</style>
+</head>
+
+<body>
+
+<!-- ヘッダー -->
+<header>
+  <h1>ロイにゃんのブログ</h1>
+
+  <div class="nav">
+    <a href="https:roinyam.com">ホーム</a>
+    <a href="../../リンク集/">リンク集</a>
+    <a href="../../記事/">記事</a>
+
+    </div>
+
+  </div>
+</header>
+
+<div class="wrap">
+  <article class="article">
+    <div class="article-header">
+      <div class="article-meta">2026/10/02 ・ 拡張機能</div>
+      <h1 class="article-title">【配布】自分がたまに使っているchatGPTの見た目を変える拡張機能を作ってみた</h1>
+    </div>
+
+    <div class="article-body">
+
+      <img src="gazou/samune.png" alt="記事内画像">
+
+      <!-- 目次 -->
+      <div class="toc">
+        <h3>目次</h3>
+        <ul>
+          <li><a href="#section1">はじめに</a></li>
+          <li><a href="#section2">導入方法</a></li>
+          <li><a href="#section3">使い方</a></li>
+          <li><a href="#section4">最後に</a></li>
+        </ul>
+      </div>
+
+      <h2 id="section1">はじめに</h2>
+
+      <p>
+        皆さんは聞いたことないと思うのですが、Heck.aiというサイトを使ったことはありますか？<br>
+        自分はたまに使うのですが、下に説明みたいなのがあって邪魔だなと思いそれを消すだけの拡張機能となります。
+      </p>
+
+      <p>
+        Heck.aiは、ChatGPTと違って文字の制限がほぼなくて、早く返信してくれます
+        ですが、会話をし続けていくとどんどん重くなっていきます
+        なので時々リロードをして軽くする必要があります
+        でも文字数の制限がないからコードなどの修正を頼みやすかったりします
+      </p>
+
+      <div class="speech-box">
+        <img src="../..//gazou/roinyan.png" alt="ロイにゃんのアイコン" class="speech-icon">
+        <p class="speech-text">コードの修正などを頼むのに便利です。</p>
+      </div>
+
+      <h2 id="section2">導入方法</h2>
+
+      <p>
+      まずは<a href="https://microsoftedge.microsoft.com/addons/detail/heckai-clean-ui/jdeibmigcjajpfblkdjggjmlbfobhfpd" target="_blank" class="link" style="color: #54bdff;">Edgeアドオン</a>にアクセスしてください<br>
+      そしたらインストールボタンを押してください
+      </p>
+
+      <img src="gazou/Edgeadd-on.png" alt="画像1">
+
+      <p>
+        その次に、この<a href="https://heck.ai/ja" target="_blank" class="link" style="color: #54bdff;">Heck.ai</a>にアクセスしてみてください<br>
+        下に説明みたいなのが表示されていなければ導入は終わりです
+      </p>
+
+      <div class="note">
+        表示される場合はダウンロードできているか確認してみてください<br>
+        それでも表示される場合は<a href="#" target="_blank" class="link" style="color: #54bdff;">お問い合わせ</a>へ
+      </div>
+
+
+      <h2 id="section3">使い方</h2>
+
+      </p>
+        右上にあるパズルのようなものをクリックしてください<br>
+        そしたらheck.ai heck.ai clean UIをクリックします<br>
+        そしたらこのような画面が出てくると思います
+      </p>
+
+      <img src="gazou/1.png" alt="画像2">
+
+      <p>
+        ここで拡張機能のON/OFFの設定や、テーマを変えることができます<br>
+      </p>
+
+      <div class="note">
+        不要な説明を隠すってやつはバグっていて使用できません<br>
+        直すかどうかはわかりません
+      </div>
+
+      <h2 id="section4">最後に</h2>
+
+      <p>
+        この拡張機能は個人用で作ったのでつかいにくかったりバグがあったりすると思います<br>
+        今後修正するかもしれないし、このまま放置するかもしれません
+      </p>
+
+    </div>
+  </article>
+
+  <div class="footer-nav">
+    <a href="https://roinyan.com">← ホームへ戻る</a>
+  </div>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-wrap">
+    <img src="../../gazou/左下.png" class="footer-img" alt="フッター画像">
+
+    <div class="footer-links">
+      <div class="footer-box">
+        <h3>ページ一覧</h3>
+        <a href="https://roinyan.com">ホーム</a>
+        <a href="../..//リンク集/">リンク集</a>
+        <a href="../../作成中.html/">Discord</a>
+        <a href="../../作成中.html/">お問合せ</a>
+      </div>
+
+      <div class="footer-box">
+        <h3>その他のリンク</h3>
+        <a href="https://discord.roinyan.com">アイスBot</a>
+      </div>
+    </div>
+
+    <img src="../../gazou/roinyanlogo.png" class="footer-logo" alt="ロゴ">
+  </div>
+
+  <div class="copyright">
+    © 2026 ロイにゃんのブログ
+  </div>
+</footer>
+
+
+<script>
+/* コードBox - VS Code風ハイライト（外部ライブラリ不要） */
+(function(){
+
+  const names = {
+    python:"Python", py:"Python", bat:"Batch", cmd:"Batch",
+    html:"HTML", markup:"HTML", css:"CSS",
+    javascript:"JavaScript", js:"JavaScript",
+    json:"JSON", powershell:"PowerShell", ps1:"PowerShell",
+    bash:"Bash", sh:"Shell", java:"Java", c:"C", cpp:"C++",
+    csharp:"C#", cs:"C#", php:"PHP", sql:"SQL", text:"Text"
+  };
+
+  const icons = {
+    python:"PY", py:"PY", bat:"BAT", cmd:"BAT",
+    html:"HTML", markup:"HTML", css:"CSS",
+    javascript:"JS", js:"JS", json:"JSON",
+    powershell:"PS", ps1:"PS", bash:"SH", sh:"SH",
+    java:"JAVA", c:"C", cpp:"C++", csharp:"C#",
+    cs:"C#", php:"PHP", sql:"SQL", text:"TXT"
+  };
+
+  const aliases = {
+    py:"python", bat:"bat", cmd:"bat", html:"html",
+    markup:"html", js:"javascript", ps1:"powershell",
+    sh:"bash", cs:"csharp"
+  };
+
+  function esc(s){
+    return s
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+  }
+
+  /*
+   * 先に特殊文字を退避してからトークン化。
+   * これなら外部サイト/CDNが読み込めなくても色が付く。
+   */
+  function highlight(source, lang){
+    let s = esc(source);
+    const stash = [];
+
+    function save(html){
+      const key = "___CODE_TOKEN_" + stash.length + "___";
+      stash.push(html);
+      return key;
+    }
+
+    // コメント
+    if(lang === "python" || lang === "bat" || lang === "powershell" ||
+       lang === "bash" || lang === "javascript" || lang === "java" ||
+       lang === "c" || lang === "cpp" || lang === "csharp" ||
+       lang === "php" || lang === "css"){
+      s = s.replace(/(#[^\n]*)/g, m => save('<span class="token comment">'+m+'</span>'));
+      s = s.replace(/(\/\/[^\n]*)/g, m => save('<span class="token comment">'+m+'</span>'));
+      s = s.replace(/(\/\*[\s\S]*?\*\/)/g, m => save('<span class="token comment">'+m+'</span>'));
+    }
+
+    if(lang === "html"){
+      s = s.replace(/(&lt;!--[\s\S]*?--&gt;)/g, m =>
+        save('<span class="token comment">'+m+'</span>')
+      );
+    }
+
+    // 文字列
+    s = s.replace(/(&quot;[\s\S]*?&quot;|&apos;[\s\S]*?&apos;|"[^"\n]*"|'[^'\n]*'|`[^`]*`)/g,
+      m => save('<span class="token string">'+m+'</span>')
+    );
+
+    // HTMLタグ
+    if(lang === "html"){
+      s = s.replace(/(&lt;\/?[a-zA-Z][^&]*?&gt;)/g, m => {
+        let t = m;
+        t = t.replace(/(&lt;\/?)([a-zA-Z][\w-]*)/g,
+          (_,p,n) => p + '<span class="token tag">'+n+'</span>');
+        t = t.replace(/([a-zA-Z_:][-a-zA-Z0-9_:.]*)(=)/g,
+          '<span class="token attr-name">$1</span>$2');
+        return save(t);
+      });
+    }
+
+    // キーワード
+    const keywordMap = {
+      python: /\b(def|class|if|elif|else|for|while|in|is|not|and|or|import|from|as|return|try|except|finally|with|lambda|yield|pass|break|continue|True|False|None|async|await)\b/g,
+      bat: /\b(echo|set|if|else|for|in|goto|call|start|pause|exit|cd|dir|copy|del|mkdir|rmdir|cls)\b/gi,
+      powershell: /\b(function|param|if|else|elseif|foreach|for|while|return|class|try|catch|finally|switch|in|and|or|not|true|false|null)\b/gi,
+      javascript: /\b(const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|try|catch|throw|typeof|true|false|null|undefined)\b/g,
+      java: /\b(public|private|protected|class|static|void|int|double|float|boolean|new|return|if|else|for|while|try|catch|extends|implements|true|false|null)\b/g,
+      c: /\b(int|char|float|double|void|return|if|else|for|while|struct|include|define|true|false|NULL)\b/g,
+      cpp: /\b(int|char|float|double|void|return|if|else|for|while|class|public|private|protected|namespace|using|include|true|false|nullptr|auto)\b/g,
+      csharp: /\b(public|private|protected|class|static|void|int|string|bool|new|return|if|else|for|foreach|while|using|namespace|true|false|null)\b/g,
+      php: /\b(function|class|public|private|protected|return|if|else|foreach|while|new|echo|true|false|null)\b/g,
+      css: /\b!important\b/g,
+      json: /"(?:[^"\\]|\\.)*"(?=\s*:)/g
+    };
+
+    if(keywordMap[lang]){
+      s = s.replace(keywordMap[lang], m => save(
+        '<span class="token keyword">'+m+'</span>'
+      ));
+    }
+
+    // 数字
+    s = s.replace(/\b\d+(?:\.\d+)?\b/g, m => save(
+      '<span class="token number">'+m+'</span>'
+    ));
+
+    // 関数名っぽい部分
+    s = s.replace(/\b([A-Za-z_$][\w$]*)(?=\s*\()/g, m => save(
+      '<span class="token function">'+m+'</span>'
+    ));
+
+    // プレースホルダーを戻す
+    s = s.replace(/___CODE_TOKEN_(\d+)___/g, (_,i) => stash[Number(i)]);
+
+    return s;
+  }
+
+  document.querySelectorAll(".code-box").forEach(function(box){
+    const code = box.querySelector("code");
+    const pre = box.querySelector("pre");
+    const label = box.querySelector(".code-language span:last-child");
+    const icon = box.querySelector(".code-icon");
+    const copy = box.querySelector(".code-copy");
+
+    if(!code || !pre) return;
+
+    const original = code.textContent;
+    let cls = [...code.classList].find(c => c.indexOf("language-") === 0);
+    let lang = cls ? cls.replace("language-","").toLowerCase() : "text";
+    lang = aliases[lang] || lang;
+
+    if(label) label.textContent = names[lang] || lang.toUpperCase();
+    if(icon) icon.textContent = icons[lang] || lang.toUpperCase().slice(0,5);
+
+    // 色付きコード
+    code.innerHTML = highlight(original, lang);
+
+    // 行番号
+    const lineCount = original.split("\n").length;
+    const lineNumbers = document.createElement("div");
+    lineNumbers.className = "code-lines";
+    lineNumbers.setAttribute("aria-hidden","true");
+    lineNumbers.innerHTML = Array.from(
+      {length:lineCount}, (_,i) => i + 1
+    ).join("<br>");
+
+    const editor = document.createElement("div");
+    editor.className = "code-editor";
+    pre.parentNode.insertBefore(editor, pre);
+    editor.appendChild(lineNumbers);
+    editor.appendChild(pre);
+
+    // コピー
+    if(copy){
+      copy.addEventListener("click", async function(){
+        try{
+          await navigator.clipboard.writeText(original);
+        }catch(e){
+          const ta = document.createElement("textarea");
+          ta.value = original;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+        }
+
+        copy.textContent = "コピーしました！";
+        copy.classList.add("copied");
+
+        setTimeout(function(){
+          copy.textContent = "コピー";
+          copy.classList.remove("copied");
+        },1500);
+      });
+    }
+  });
+
+})();
+</script>
+
+<!-- コピー防止 -->
+<script>
+// 右クリック禁止
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+
+// コピー・切り取り・貼り付け禁止
+["copy", "cut", "paste"].forEach(function(event) {
+  document.addEventListener(event, function(e) {
+    e.preventDefault();
+  });
+});
+
+// ドラッグ禁止
+document.addEventListener("dragstart", function(e) {
+  e.preventDefault();
+});
+
+// キーボードショートカット禁止
+document.addEventListener("keydown", function(e) {
+  const key = e.key.toLowerCase();
+
+  if (e.key === "F12") {
+    e.preventDefault();
+    return;
+  }
+
+  if (e.ctrlKey && ["u", "s", "c", "x", "a", "p"].includes(key)) {
+    e.preventDefault();
+    return;
+  }
+
+  if (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key)) {
+    e.preventDefault();
+  }
+});
+</script>
+
+</body>
+</html>
