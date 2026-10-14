@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <title>ロイにゃんのブログ｜Web・Discord Bot・便利ツール</title>
-
 <link rel="icon" type="image/png" href="gazou/roinyan.png">
-
 <meta name="description" content="ロイにゃんのブログです。Webサイト制作、Discord Bot、自作ツールや便利なサイト・拡張機能などを紹介しています。">
-
 <meta name="keywords" content="ロイにゃん, ろいにゃん, roinyan, ロイにゃんのブログ, Discord Bot, Webサイト, 自作ツール">
 
 <!-- Google Search Console 所有権確認 -->
 <meta name="google-site-verification" content="q1NGCtlpUSN3hzYPz2-eJk2UMRz4Q2nFI6poCIr_8HY">
-
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
-
 <style>
 *{
   box-sizing:border-box;
@@ -515,13 +510,10 @@ footer{
 
 <header>
   <h1>ロイにゃんのブログ</h1>
-
   <div class="nav">
     <a href="https://roinyan.com">ホーム</a>
     <a href="/リンク集/">リンク集</a>
     <a href="/記事/">記事</a>
-    </div>
-
   </div>
 </header>
 
@@ -529,15 +521,16 @@ footer{
   <h3>📢 お知らせ</h3>
   <div class="notice-content" id="noticeContent">
     <p>ロイにゃんのブログを新しくしてみました</p>
+  </div>
 </div>
 
 <div class="layout">
 
   <!-- 左側 -->
+
   <main class="main-content">
     <div class="top-box">
       <img src="gazou/roinyan.png" class="left-img" alt="ロイにゃんのアイコン">
-
       <div class="text">
         <h2>ロイにゃんのブログへようこそ</h2>
         <p>
@@ -560,7 +553,6 @@ footer{
       </div>
       <div class="card-body">
         <div class="post-list">
-
           <a class="post" href="/記事/Heak.ai拡張機能/">
             <img src="gazou/kizi1.png" class="post-thumb" alt="記事サムネイル">
             <div>
@@ -571,14 +563,13 @@ footer{
               </p>
             </div>
           </a>
-
         </div>
       </div>
     </div>
-
   </main>
 
   <!-- 右側 -->
+
   <aside class="sidebar">
 
     <div class="card profile">
@@ -598,17 +589,14 @@ footer{
           <img src="icon/Youtube.png" alt="" class="link-icon">
           <span>Youtube</span>
         </a>
-
         <a class="side-link" href="https://x.com/roinyan1125">
           <img src="icon/x.png" alt="" class="link-icon">
           <span>X(旧Twitter)</span>
         </a>
-
         <a class="side-link" href="https://roinyan.booth.pm/">
           <img src="icon/BOOTH.png" alt="" class="link-icon">
           <span>BOOTH</span>
         </a>
-
       </div>
     </div>
 
@@ -658,7 +646,6 @@ footer{
 window.addEventListener("DOMContentLoaded", () => {
   const box = document.getElementById("noticeBox");
   const content = document.getElementById("noticeContent");
-
   if (!content || content.textContent.trim() === "") {
     box.style.display = "none";
   }
@@ -670,28 +657,23 @@ window.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("contextmenu", function(e) {
   e.preventDefault();
 });
-
 // コピー・切り取り・貼り付け禁止
 ["copy", "cut", "paste"].forEach(function(event) {
   document.addEventListener(event, function(e) {
     e.preventDefault();
   });
 });
-
 // ドラッグ禁止
 document.addEventListener("dragstart", function(e) {
   e.preventDefault();
 });
-
 // キーボードショートカット禁止
 document.addEventListener("keydown", function(e) {
   const key = e.key.toLowerCase();
-
   if (e.key === "F12") {
     e.preventDefault();
     return;
   }
-
   if (
     e.ctrlKey &&
     ["u", "s", "c", "x", "a", "p"].includes(key)
@@ -699,7 +681,6 @@ document.addEventListener("keydown", function(e) {
     e.preventDefault();
     return;
   }
-
   if (
     e.ctrlKey &&
     e.shiftKey &&
